@@ -1,3 +1,5 @@
+<%@page import="com.cdac.everification.model.Candidate"%>
+<%@page import="com.cdac.everification.model.CandiDocs"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -7,8 +9,9 @@
   <%@page import="com.cdac.everification.model.Organization"%>
      <%
  	Organization org  = (Organization)session.getAttribute("org");
-     List<Organization> userList = (List<Organization>)request.getAttribute("ul");
- 
+     List<Candidate> userList = (List<Candidate>)request.getAttribute("ul");
+     List<CandiDocs> docList = (List<CandiDocs>)request.getAttribute("docList");
+     List<String> docType = (List<String>)request.getAttribute("docType");
  %>   
 <!DOCTYPE html>
 <html>
@@ -36,36 +39,35 @@
                 <div class="pl-md-5" style="font-size: 30px;font-weight: bold;font-family: 'Times New Roman', Times, serif;">E-Verification </div>
             </div>
     </div>
-    <h1>Documents of <%=userList.get(0).getOrgName()%> </h1><br/>  
+    <h1>Documents of <%=userList.get(0).getCandiFname()%> </h1><br/>  
 	<div id="myDIV" >
 		<div class="container-fluid">
      	<div class="row " style="height:430px; ">
 			<div class="col-12">
 				<div class="row " style="">
-					<div class="col-1"></div>
+					<div class="col-2"></div>
 					<div class="col-1 "style="border: solid 1px black;">Sr No.</div>
-					<div class="col-2"style="border: solid 1px black;">Candidate Name</div>
 					<div class="col-2"style="border: solid 1px black;">Document type</div>
 					<div class="col-2"style="border: solid 1px black;">Status</div>
 					<div class="col-1"style="border: solid 1px black;">View Document</div>
 					<div class="col-2"style="border: solid 1px black;" >Process Completed</div>
-					<div class="col-1"></div>
+					<div class="col-2"></div>
 				</div>
 		
 	 <%
 	 int i=1;
-	 for(Organization u : userList) 
+	 int j=0;
+	 for(CandiDocs u : docList) 
 	{ 
 		%>
 		<div class="row" style="height: 25px">
-			<div class="col-1"></div>
+			<div class="col-2"></div>
 			<div class="col-1 "style="border: solid 1px black;"><%= i++ %></div>
-			<div class="col-2"style="border: solid 1px black;"><%= u.getOrgName() %></div>
-			<div class="col-2"style="border: solid 1px black;"><%= u.getPhone() %></div>
-			<div class="col-2"style="border: solid 1px black;"><%= u.getCity() %></div>
+ 			<div class="col-2"style="border: solid 1px black;"><%= docType.get(j++) %></div>
+			<div class="col-2"style="border: solid 1px black;"><%= u.getDocStatus() %></div>
 			<div class="col-1"style="border: solid 1px black;"><a href="">View</a></div>
-			<div class="col-2"style="border: solid 1px black;" ><%= u.getState() %></div>
-			<div class="col-1"></div>
+			<div class="col-2"style="border: solid 1px black;" ><a href="">Procee Complete</a></div>
+			<div class="col-2"></div>
 		</div>
 	<% } %>	 
 			</div>

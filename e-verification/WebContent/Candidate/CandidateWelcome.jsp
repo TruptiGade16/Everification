@@ -1,3 +1,5 @@
+<%@page import="com.cdac.everification.model.DocumentMaster"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
@@ -34,7 +36,7 @@
             </div>
             <div class="col-8" style="border: solid 2px black; border-radius: 10px;">
                 <div class="center" style="height: 200px; ">
-                    <img id="imgId" src="Candidate/2.jpg" alt="Candidate image" width="200" height="150">
+                    <img id="imgId" src="2.jpg" alt="Candidate image" width="200" height="150">
                 </div>
 				<c:form action="upload_doc.htm" commandName="candiDoc">
                 <div class="center" style="height: 100px; ">
@@ -44,12 +46,17 @@
                 
                 <div class="center" style="height: 50px;">
                      <c:select path="docId">
-                        <option value="0">Select Document</option>
+                     <%
+                     	//ForEach(DocumentMaster d: ul)
+                     	{
+                     %>
+                        <!-- <option value="0">Select Document</option>
                         <option value="1">10th Marksheet</option>
                         <option value="2">12th Marksheet</option>
                         <option value="3">Graduation Marksheet</option>
                         <option value="4">Adhar Card</option>
-                        <option value="5">Pan Card</option>
+                        <option value="5">Pan Card</option> -->
+                        <%} %>>
                     </c:select> 
                 </div> 
                 <div class="center" style="height: 50px;">
@@ -60,7 +67,7 @@
                 </div>
                 
                 <div class="center" style="height: 50px;">
-                    <input type="submit" value="List" style="border: solid 0.5px red; color: whitesmoke; 
+                    <input formaction="candi_doc_list.htm" type="submit" value="List" style="border: solid 0.5px red; color: whitesmoke; 
                     border-radius: 7px; padding-left: 10px; background-color: red; height: 35px; width: 100px;">
                 </div>
                 </c:form> 

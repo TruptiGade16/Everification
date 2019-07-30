@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cdac.everification.model.CandiDocs;
 import com.cdac.everification.model.Candidate;
+import com.cdac.everification.model.DocumentMaster;
 import com.cdac.everification.model.Organization;
 import com.cdac.everification.service.CandidateService;
 
@@ -59,13 +60,35 @@ public class CandidateController {
 	}
 	
 	@RequestMapping(value = "/upload_doc.htm")
-	
 	public String register(@RequestParam("id") int id, CandiDocs candi,ModelMap model) {
-		System.out.println("************************************************");
-		//System.out.println("============="+candi.getDocId()+"====================");
-		//candidateService.createUser(candi);
+		candi.setDocStatus("Valid");
+		candi.setCandiId(id);
+		candidateService.saveDocs(candi);
 		model.put("candi", new Candidate());
 		return "Candidate/CandidateLogin";
+		
+	}
+	
+	@RequestMapping(value = "/candi_doc_list.htm")
+	public String register(@RequestParam("id") int id,ModelMap model) {
+		
+		List<CandiDocs> ulist =candidateService.showList(id);
+		String candiName=candidateService.getCName(id);
+		System.out.println(ulist.size()+": Size");
+		List<String> docName=new ArrayList<String>();
+		for(int i=0;i<ulist.size();i++)
+		{
+			String docName1=candidateService.getDName(ulist.get(i).getDocId());
+			docName.add(docName1);	
+		}
+		
+		List<String>ul=new ArrayList<String>();
+		ul.add(candiName);
+		model.put("ul", ulist);
+		model.put("cName", ul);
+		model.put("dName", docName);
+
+		return "Candidate/CandiDocList";
 		
 	}
 	
